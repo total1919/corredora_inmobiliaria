@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="hero">
+    <h1>Corredora Atacama</h1>
+    <p>Somos una corredora pequeña de Copiapó. Nuestros corredores publican sus propiedades
+       y tú puedes consultar por ellas directamente desde el sitio, sin llamar por teléfono.</p>
+    <a href="{% url 'propiedad_lista' %}">Ver todas las propiedades</a>
+  </div>
+
+  <div class="contadores">
+    <div><strong>{{ total_disponibles }}</strong> propiedades disponibles</div>
+    <div><strong>{{ total_tipos }}</strong> tipos de propiedad</div>
+    <div><strong>{{ total_consultas }}</strong> consultas recibidas</div>
+  </div>
+
+  <h2>Publicadas recientemente</h2>
+  <section>
+    {% for propiedad in recientes %}
+      {% include '_tarjeta.html' %}
+    {% empty %}
+      <p>Aún no hay propiedades publicadas.</p>
+    {% endfor %}
+  </section>
+
+{% endblock %}

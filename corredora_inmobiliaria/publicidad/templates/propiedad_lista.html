@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <aside>
+    <form method="get">
+      <label>Buscar
+        <input type="text" name="q" value="{{ q }}" placeholder="Título o descripción">
+      </label>
+
+      <label>Tipo de propiedad
+        <select name="tipo">
+          <option value="">Todos</option>
+          {% for tipo in tipos %}
+            <option value="{{ tipo.id }}" {% if tipo_id == tipo.id|stringformat:"s" %}selected{% endif %}>
+              {{ tipo.nombre }}
+            </option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <button type="submit">Filtrar</button>
+    </form>
+  </aside>
+
+  <div>
+    <section>
+      {% for propiedad in propiedades %}
+        {% include '_tarjeta.html' %}
+      {% empty %}
+        <p>No hay propiedades con esos filtros.</p>
+      {% endfor %}
+    </section>
+
+    <p class="paginacion">
+      {% if propiedades.has_previous %}
+        <a href="?{{ querystring }}&page={{ propiedades.previous_page_number }}">Anterior</a>
+      {% endif %}
+      Página {{ propiedades.number }} de {{ propiedades.paginator.num_pages }}
+      {% if propiedades.has_next %}
+        <a href="?{{ querystring }}&page={{ propiedades.next_page_number }}">Siguiente</a>
+      {% endif %}
+    </p>
+  </div>
+
+{% endblock %}

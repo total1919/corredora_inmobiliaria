@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="detalle">
+    <span class="estado estado-{{ propiedad.estado }}">{{ propiedad.estado }}</span>
+    <h1>{{ propiedad.titulo }}</h1>
+    <p class="precio">${{ propiedad.precio }}</p>
+
+    <dl>
+      <dt>Tipo</dt>          <dd>{{ propiedad.tipo|default:"Sin tipo" }}</dd>
+      <dt>Superficie</dt>    <dd>{{ propiedad.metros_cuadrados }} m²</dd>
+      <dt>Publicada por</dt> <dd>{{ propiedad.corredor.get_full_name|default:propiedad.corredor.username }}</dd>
+      <dt>Publicada el</dt>  <dd>{{ propiedad.creado|date:"d-m-Y" }}</dd>
+      <dt>Características</dt>
+      <dd>
+        {% for caracteristica in propiedad.caracteristicas.all %}
+          <span class="chip">{{ caracteristica }}</span>
+        {% empty %}
+          Sin características
+        {% endfor %}
+      </dd>
+    </dl>
+
+    <p>{{ propiedad.descripcion|linebreaksbr }}</p>
+
+    {% if propiedad.corredor == user %}
+      <p class="acciones">
+        <a href="{% url 'propiedad_editar' propiedad.pk %}">Editar</a>
+        <a href="{% url 'propiedad_eliminar' propiedad.pk %}">Eliminar</a>
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="detalle">
+    <h2>Consultar por esta propiedad</h2>
+
+    {% if form %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar consulta</button>
+      </form>
+    {% elif not user.is_authenticated %}
+      <p><a href="{% url 'login' %}?next={{ request.path }}">Ingresa</a> para enviar una consulta.</p>
+    {% elif propiedad.corredor == user %}
+      <p class="suave">Esta propiedad es tuya.</p>
+    {% else %}
+      <p class="suave">Esta propiedad ya fue vendida y no recibe consultas.</p>
+    {% endif %}
+  </div>
+
+{% endblock %}

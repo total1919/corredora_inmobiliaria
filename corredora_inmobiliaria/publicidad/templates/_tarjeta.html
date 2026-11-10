@@ -1,0 +1,7 @@
+<article>
+  <span class="estado estado-{{ propiedad.estado }}">{{ propiedad.estado }}</span>
+  <h3><a href="{% url 'propiedad_detalle' propiedad.pk %}">{{ propiedad.titulo }}</a></h3>
+  <p class="precio">${{ propiedad.precio }}</p>
+  <p>{{ propiedad.metros_cuadrados }} m² · {{ propiedad.tipo|default:"Sin tipo" }}</p>
+  <p class="suave">Publica: {{ propiedad.corredor.username }}</p>
+</article>

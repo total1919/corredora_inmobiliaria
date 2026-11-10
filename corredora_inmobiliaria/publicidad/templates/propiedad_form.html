@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>{% if propiedad %}Editar propiedad{% else %}Publicar propiedad{% endif %}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p class="suave">¿No está el tipo que buscas? <a href="{% url 'tipo_crear' %}">Crear tipo</a></p>
+    <button type="submit">Guardar</button>
+  </form>
+
+{% endblock %}

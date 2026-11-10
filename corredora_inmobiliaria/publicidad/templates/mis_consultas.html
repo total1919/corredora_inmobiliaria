@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Mis consultas</h2>
+
+  <ul>
+    {% for consulta in consultas %}
+      <li>
+        <a href="{% url 'propiedad_detalle' consulta.propiedad.pk %}">{{ consulta.propiedad.titulo }}</a>
+        <span class="estado estado-{{ consulta.estado }}">{{ consulta.estado }}</span>
+        <span class="suave">· {{ consulta.creado|date:"d-m-Y" }}</span>
+
+        <p>{{ consulta.mensaje }}</p>
+
+        {% if consulta.respuesta %}
+          <p class="respuesta"><strong>Respuesta:</strong> {{ consulta.respuesta }}</p>
+        {% endif %}
+
+        {% if consulta.estado == 'nueva' %}
+          <form method="post" action="{% url 'consulta_cancelar' consulta.pk %}">
+            {% csrf_token %}
+            <button type="submit">Cancelar consulta</button>
+          </form>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>Aún no has enviado consultas.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

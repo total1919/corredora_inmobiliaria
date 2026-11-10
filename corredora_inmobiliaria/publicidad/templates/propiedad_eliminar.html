@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Eliminar propiedad</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>¿Seguro que quieres eliminar "{{ propiedad.titulo }}"? También se borrarán sus consultas. Esto no se puede deshacer.</p>
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'propiedad_detalle' propiedad.pk %}">Cancelar</a>
+  </form>
+
+{% endblock %}

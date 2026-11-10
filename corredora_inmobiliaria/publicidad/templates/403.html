@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Sin permiso</h2>
+  <p>No tienes permiso para modificar este registro: solo su dueño puede hacerlo.</p>
+  <p><a href="{% url 'portada' %}">Volver al inicio</a></p>
+
+{% endblock %}

@@ -1,0 +1,455 @@
+/* ---------- Variables ---------- */
+:root {
+  --fondo: #f7f5f2;
+  --superficie: #ffffff;
+  --texto: #2b2b2b;
+  --texto-suave: #6b6b6b;
+  --borde: #e3dfd8;
+  --acento: #b5542d;
+  --acento-oscuro: #8f3f20;
+  --exito: #2e7d4f;
+  --error: #b3261e;
+  --radio: 8px;
+}
+
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--acento);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* ---------- Topbar ---------- */
+header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 2rem;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+}
+
+header strong {
+  font-size: 1.25rem;
+  margin-right: auto;
+}
+
+header strong a {
+  color: var(--acento);
+}
+
+header span {
+  color: var(--texto-suave);
+}
+
+header form {
+  margin: 0;
+}
+
+/* ---------- Navbar ---------- */
+nav {
+  background: var(--acento);
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0 2rem;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #fff;
+}
+
+nav a:hover {
+  background: var(--acento-oscuro);
+  text-decoration: none;
+}
+
+/* ---------- Mensajes ---------- */
+.mensajes {
+  max-width: 1100px;
+  margin: 1rem auto 0;
+  padding: 0 2rem;
+  list-style: none;
+}
+
+.mensajes li {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio);
+  background: #e7f3ec;
+  color: var(--exito);
+}
+
+.mensajes li.error {
+  background: #fbe9e7;
+  color: var(--error);
+}
+
+/* ---------- Contenido ---------- */
+main {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* Si la página trae un aside (inicio), se arma en dos columnas */
+main:has(> aside) {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ---------- Aside (filtros) ---------- */
+aside {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1rem;
+}
+
+aside form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+aside fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+aside legend {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+aside fieldset label {
+  display: block;
+}
+
+/* ---------- Tarjetas de propiedades ---------- */
+section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+article:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+article h3 {
+  margin: 0 0 0.25rem;
+}
+
+article p {
+  margin: 0 0 0.5rem;
+  color: var(--texto-suave);
+}
+
+article h3 a {
+  color: var(--texto);
+}
+
+/* ---------- Formularios ---------- */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  font: inherit;
+  background: #fff;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.4rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--acento);
+  outline-offset: 1px;
+}
+
+main > form p label,
+main > form > p > label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+main > form {
+  max-width: 480px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+}
+
+.errorlist {
+  margin: 0.25rem 0;
+  padding: 0;
+  list-style: none;
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.helptext {
+  display: block;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+/* ---------- Botones ---------- */
+button {
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--acento-oscuro);
+}
+
+/* Botones del topbar y pestañas: versión suave */
+header button,
+button[type="button"] {
+  background: transparent;
+  color: var(--acento);
+  border: 1px solid var(--acento);
+}
+
+header button:hover,
+button[type="button"]:hover {
+  background: var(--acento);
+  color: #fff;
+}
+
+/* ---------- Listas (solicitudes, mis propiedades) ---------- */
+main > ul {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+}
+
+main > ul > li {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+main > ul > li form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+main > ul > li select {
+  width: auto;
+}
+
+/* ---------- Portada ---------- */
+.hero {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  margin-top: 0;
+  color: var(--acento);
+}
+
+.contadores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contadores div {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1rem;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.contadores strong {
+  display: block;
+  font-size: 2rem;
+  color: var(--acento);
+}
+
+/* ---------- Detalle ---------- */
+.detalle {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+}
+
+.detalle h1 {
+  margin: 0.5rem 0 0.25rem;
+}
+
+.detalle dl {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.4rem 1rem;
+}
+
+.detalle dt {
+  font-weight: 600;
+}
+
+.detalle dd {
+  margin: 0;
+}
+
+.detalle form {
+  max-width: 500px;
+}
+
+/* ---------- Piezas pequeñas ---------- */
+.precio {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--texto) !important;
+}
+
+.suave {
+  color: var(--texto-suave);
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  margin: 0 0.25rem 0.25rem 0;
+  border-radius: 999px;
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  font-size: 0.9rem;
+}
+
+.estado {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  background: #eee;
+  color: #555;
+}
+
+.estado-disponible, .estado-nueva      { background: #e7f3ec; color: var(--exito); }
+.estado-reservada, .estado-respondida  { background: #fdf3dc; color: #8a5a00; }
+.estado-vendida, .estado-cerrada       { background: #eceae6; color: #555; }
+.estado-cancelada                      { background: #fbe9e7; color: var(--error); }
+
+.acciones a {
+  margin-right: 0.75rem;
+}
+
+.respuesta {
+  border-left: 3px solid var(--acento);
+  padding-left: 0.75rem;
+}
+
+.paginacion {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.paginacion a {
+  margin: 0 0.75rem;
+}
+
+button.secundario {
+  background: transparent;
+  color: var(--texto-suave);
+  border: 1px solid var(--borde);
+}
+
+button.secundario:hover {
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--texto-suave);
+  border-top: 1px solid var(--borde);
+  background: var(--superficie);
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 700px) {
+  main:has(> aside),
+  .contadores {
+    grid-template-columns: 1fr;
+  }
+
+  header,
+  nav ul,
+  main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Consultas recibidas</h2>
+
+  <ul>
+    {% for consulta in consultas %}
+      <li>
+        <a href="{% url 'propiedad_detalle' consulta.propiedad.pk %}">{{ consulta.propiedad.titulo }}</a>
+        <span class="estado estado-{{ consulta.estado }}">{{ consulta.estado }}</span>
+        <span class="suave">· de {{ consulta.interesado.username }} · {{ consulta.creado|date:"d-m-Y" }}</span>
+
+        <p>{{ consulta.mensaje }}</p>
+
+        {% if consulta.respuesta %}
+          <p class="respuesta"><strong>Tu respuesta:</strong> {{ consulta.respuesta }}</p>
+        {% endif %}
+
+        {% if consulta.estado == 'nueva' or consulta.estado == 'respondida' %}
+          <form method="post" action="{% url 'consulta_responder' consulta.pk %}">
+            {% csrf_token %}
+            <textarea name="respuesta" rows="2" placeholder="Escribe tu respuesta" required></textarea>
+            <button type="submit">Responder</button>
+          </form>
+          <form method="post" action="{% url 'consulta_cerrar' consulta.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="secundario">Cerrar consulta</button>
+          </form>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>Todavía no recibes consultas.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

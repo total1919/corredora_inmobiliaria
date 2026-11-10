@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Corredora Atacama{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+  <header>
+    <strong><a href="{% url 'portada' %}">Corredora Atacama</a></strong>
+
+    {% if user.is_authenticated %}
+      <span>Hola, {{ user.first_name|default:user.username }}</span>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Ingresar</a>
+      <a href="{% url 'registro' %}">Registrarse</a>
+    {% endif %}
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="{% url 'portada' %}">Inicio</a></li>
+      <li><a href="{% url 'propiedad_lista' %}">Propiedades</a></li>
+
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'propiedad_crear' %}">Publicar</a></li>
+        <li><a href="{% url 'mis_propiedades' %}">Mis propiedades</a></li>
+        <li><a href="{% url 'mis_consultas' %}">Mis consultas</a></li>
+        <li><a href="{% url 'consultas_recibidas' %}">Consultas recibidas</a></li>
+        <li><a href="{% url 'mi_cuenta' %}">Mi cuenta</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  {% if messages %}
+    <ul class="mensajes">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© Corredora Atacama</p>
+  </footer>
+
+</body>
+</html>
